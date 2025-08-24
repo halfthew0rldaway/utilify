@@ -22,18 +22,5 @@ Frontend: HTML5, CSS3, Vanilla JavaScript (ES6+)
 
 Styling: Tailwind CSS
 
-
-
-⚙️ Getting Started
-Clone the repository:
-
-git clone https://github.com/your-username/devtools-fun.git
-
-Navigate to the project directory:
-
-cd devtools-fun
-
-Open index.html in your browser.
-
 📄 License
 This project is licensed under the MIT License.
