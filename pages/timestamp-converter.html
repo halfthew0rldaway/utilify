@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Converter — Utilify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/themes.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+</head>
+<body>
+    <header class="site-header"><div class="header-inner"><a href="../" class="site-logo">Utilify</a><div class="header-actions"><button class="nav-link" onclick="CommandPalette.open()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Search</span></button><button class="theme-toggle" aria-label="Toggle theme"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button></div></div></header>
+
+    <div class="container">
+        <div class="tool-header reveal">
+            <a href="../" class="back-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to tools</a>
+            <h1>Timestamp Converter</h1>
+            <p>Convert between Unix timestamps and human-readable dates.</p>
+        </div>
+        <div class="tool-container reveal">
+            <div class="panel">
+                <div class="panel-header"><h3>Current Time</h3></div>
+                <div class="panel-body">
+                    <div class="stats-grid">
+                        <div class="stat-item"><div class="stat-value" id="current-unix" style="font-size:1.25rem">—</div><div class="stat-label">Unix Timestamp</div></div>
+                        <div class="stat-item"><div class="stat-value" id="current-iso" style="font-size:0.875rem;word-break:break-all">—</div><div class="stat-label">ISO 8601</div></div>
+                        <div class="stat-item"><div class="stat-value" id="current-utc" style="font-size:0.75rem">—</div><div class="stat-label">UTC</div></div>
+                        <div class="stat-item"><div class="stat-value" id="current-local" style="font-size:0.75rem">—</div><div class="stat-label">Local</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-workspace cols-2 mt-lg">
+                <div class="panel">
+                    <div class="panel-header"><h3>Unix → Human</h3></div>
+                    <div class="panel-body">
+                        <input type="text" id="unix-input" class="input-field" placeholder="Enter Unix timestamp…">
+                        <div id="unix-result" style="margin-top:var(--space-md);color:var(--color-text-secondary);font-size:0.9375rem"></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header"><h3>Human → Unix</h3></div>
+                    <div class="panel-body">
+                        <input type="datetime-local" id="human-input" class="input-field">
+                        <div id="human-result" style="margin-top:var(--space-md);color:var(--color-text-secondary);font-size:0.9375rem"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer"><div class="container"><div class="footer-inner"><p>&copy; 2024 Utilify</p></div></div></footer>
+    <div id="command-overlay" class="command-overlay" role="dialog"><div class="command-palette"><div class="command-input-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" class="command-input" placeholder="Search tools…" autocomplete="off"></div><div class="command-results"></div><div class="command-footer"><span><kbd>↑↓</kbd> Navigate</span><span><kbd>↵</kbd> Open</span><span><kbd>Esc</kbd> Close</span></div></div></div>
+
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/toast.js"></script>
+    <script src="../assets/js/search.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/tools/timestamp-converter.js"></script>
+</body>
+</html>

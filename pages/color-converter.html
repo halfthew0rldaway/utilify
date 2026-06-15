@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Converter — Utilify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/themes.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+</head>
+<body>
+    <header class="site-header"><div class="header-inner"><a href="../" class="site-logo">Utilify</a><div class="header-actions"><button class="nav-link" onclick="CommandPalette.open()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Search</span></button><button class="theme-toggle" aria-label="Toggle theme"><svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button></div></div></header>
+
+    <div class="container">
+        <div class="tool-header reveal">
+            <a href="../" class="back-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to tools</a>
+            <h1>Color Converter</h1>
+            <p>Convert colors between HEX, RGB, and HSL formats.</p>
+        </div>
+        <div class="tool-container reveal">
+            <div class="panel">
+                <div class="panel-header"><h3>Color Input</h3></div>
+                <div class="panel-body">
+                    <div class="flex gap-lg items-center flex-wrap">
+                        <div style="width:80px;height:80px;border-radius:var(--radius-md);border:1px solid var(--color-border)" id="color-preview"></div>
+                        <div style="flex:1;min-width:200px"><label class="label">Pick or type a color</label><div class="flex gap-sm"><input type="color" id="color-picker" value="#3b82f6" style="width:48px;height:40px;border:none;cursor:pointer;border-radius:var(--radius-sm)"><input type="text" id="hex-input" class="input-field" value="#3b82f6" placeholder="#000000" style="flex:1"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel mt-lg">
+                <div class="panel-header"><h3>Conversions</h3></div>
+                <div class="panel-body" id="conversions">
+                    <div class="mb-md"><label class="label">HEX</label><div class="flex gap-sm items-center"><code id="hex-val" style="flex:1;font-family:var(--font-mono)">—</code><button class="btn btn-ghost btn-sm copy-val" data-target="hex-val">Copy</button></div></div>
+                    <div class="mb-md"><label class="label">RGB</label><div class="flex gap-sm items-center"><code id="rgb-val" style="flex:1;font-family:var(--font-mono)">—</code><button class="btn btn-ghost btn-sm copy-val" data-target="rgb-val">Copy</button></div></div>
+                    <div class="mb-md"><label class="label">HSL</label><div class="flex gap-sm items-center"><code id="hsl-val" style="flex:1;font-family:var(--font-mono)">—</code><button class="btn btn-ghost btn-sm copy-val" data-target="hsl-val">Copy</button></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer"><div class="container"><div class="footer-inner"><p>&copy; 2024 Utilify</p></div></div></footer>
+    <div id="command-overlay" class="command-overlay" role="dialog"><div class="command-palette"><div class="command-input-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><input type="text" class="command-input" placeholder="Search tools…" autocomplete="off"></div><div class="command-results"></div><div class="command-footer"><span><kbd>↑↓</kbd> Navigate</span><span><kbd>↵</kbd> Open</span><span><kbd>Esc</kbd> Close</span></div></div></div>
+
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/toast.js"></script>
+    <script src="../assets/js/search.js"></script>
+    <script src="../assets/js/transitions.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/tools/color-converter.js"></script>
+</body>
+</html>

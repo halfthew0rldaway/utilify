@@ -1,176 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utilify - Powerful Utilities</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Poppins -->
+    <title>Utilify — Practical tools for people who build, write, design, and create.</title>
+    <meta name="description"
+        content="Fast, private, browser-powered utility suite for developers, designers, and creators.">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS File -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/themes.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
-<body class="bg-gray-50 text-gray-800">
 
-    <div class="background-shapes"></div>
+<body>
 
-    <div class="container mx-auto p-4 md:p-8 relative z-10">
-        
-        <!-- Header -->
-        <header class="text-center mb-16">
-            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight header-title">
-                Utilify
-            </h1>
-            <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
-                A fresh suite of playful yet powerful utilities to brighten up your workflow.
-            </p>
-        </header>
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="site-logo">Utilify</a>
+            <div class="header-actions">
+                <button class="nav-link" onclick="CommandPalette.open()" aria-label="Search tools">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Search</span>
+                </button>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
 
-        <!-- Tools Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Hero -->
+    <section class="hero reveal">
+        <div class="container">
+            <h1>Practical tools for people who build, write, design, and create.</h1>
+            <p class="subtitle">Fast. Private. Browser-powered.</p>
 
-            <!-- Tool: Unit Converter -->
-            <div class="tool-card border-blue-500">
-                <div class="card-header bg-blue-500">
-                    <h2 class="text-2xl font-bold text-white">Universal Converter</h2>
+            <!-- Search -->
+            <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-input" class="search-bar" placeholder="Search tools…" autocomplete="off">
+                <span class="search-kbd">/</span>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Recent Tools -->
+        <section id="recent-section" class="section-sm" style="display:none">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Recently Used</h2>
                 </div>
-                <div class="space-y-4 p-6">
-                    <div>
-                        <label class="label">Category</label>
-                        <select id="unitCategory" class="input-field select-field"></select>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <div class="w-full">
-                            <select id="unitFrom" class="input-field select-field"></select>
-                            <input type="number" id="unitInput" placeholder="Enter value" class="input-field mt-2">
-                        </div>
-                        <button id="swapUnitsBtn" class="swap-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                <div id="recent-grid" class="tools-grid reveal-stagger"></div>
+            </div>
+        </section>
+
+        <!-- Featured Tools -->
+        <section class="section-sm reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured</h2>
+                </div>
+                <div class="tools-grid reveal-stagger" id="featured-grid">
+                    <a href="pages/json-formatter.html" class="tool-card" data-name="json formatter"
+                        data-category="developer" data-keywords="json format minify validate">
+                        <div class="card-category">Developer</div>
+                        <h3>JSON Formatter</h3>
+                        <p>Format, validate and minify JSON documents with instant error detection.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+                    <a href="pages/regex-tester.html" class="tool-card" data-name="regex tester"
+                        data-category="developer" data-keywords="regex regular expression match">
+                        <div class="card-category">Developer</div>
+                        <h3>Regex Tester</h3>
+                        <p>Test regular expressions with live matching and pattern flags.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+                    <a href="pages/color-palette.html" class="tool-card" data-name="color palette generator"
+                        data-category="design" data-keywords="color palette generate random scheme">
+                        <div class="card-category">Design</div>
+                        <h3>Color Palette Generator</h3>
+                        <p>Generate beautiful random color palettes with lock and copy support.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+                    <a href="pages/password-generator.html" class="tool-card" data-name="password generator"
+                        data-category="utilities" data-keywords="password secure random strong">
+                        <div class="card-category">Utilities</div>
+                        <h3>Password Generator</h3>
+                        <p>Generate strong passwords with custom length, symbols, and strength indicator.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Nav -->
+        <section class="section reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>All Tools</h2>
+                </div>
+
+                <nav class="category-nav mb-xl">
+                    <button class="category-tab active" data-category="all">All</button>
+                    <button class="category-tab" data-category="text">Text</button>
+                    <button class="category-tab" data-category="developer">Developer</button>
+                    <button class="category-tab" data-category="design">Design</button>
+                    <button class="category-tab" data-category="utilities">Utilities</button>
+                </nav>
+
+                <!-- All Tools Grid -->
+                <div class="tools-grid reveal-stagger" id="tools-grid">
+
+                    <!-- Text Tools -->
+                    <a href="pages/text-analyzer.html" class="tool-card" data-name="text analyzer" data-category="text"
+                        data-keywords="text analyze count words characters reading">
+                        <button class="favorite-btn" data-slug="text-analyzer" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
                         </button>
-                        <div class="w-full">
-                            <select id="unitTo" class="input-field select-field"></select>
-                            <input type="text" id="unitOutput" placeholder="Result" class="input-field mt-2" readonly>
-                        </div>
-                    </div>
+                        <div class="card-category">Text</div>
+                        <h3>Text Analyzer</h3>
+                        <p>Count characters, words, sentences, paragraphs, and estimate reading time.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/case-converter.html" class="tool-card" data-name="case converter"
+                        data-category="text" data-keywords="case uppercase lowercase camel snake kebab title">
+                        <button class="favorite-btn" data-slug="case-converter" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Text</div>
+                        <h3>Case Converter</h3>
+                        <p>Convert text between uppercase, lowercase, title case, camelCase, snake_case, and kebab-case.
+                        </p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/markdown-preview.html" class="tool-card" data-name="markdown preview"
+                        data-category="text" data-keywords="markdown md render preview">
+                        <button class="favorite-btn" data-slug="markdown-preview" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Text</div>
+                        <h3>Markdown Preview</h3>
+                        <p>Live preview Markdown with syntax highlighting and HTML export.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/lorem-generator.html" class="tool-card" data-name="lorem ipsum generator"
+                        data-category="text" data-keywords="lorem ipsum placeholder text dummy">
+                        <button class="favorite-btn" data-slug="lorem-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Text</div>
+                        <h3>Lorem Ipsum Generator</h3>
+                        <p>Generate placeholder text by paragraphs, sentences, or words.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/slug-generator.html" class="tool-card" data-name="slug generator"
+                        data-category="text" data-keywords="slug url friendly dash">
+                        <button class="favorite-btn" data-slug="slug-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Text</div>
+                        <h3>Slug Generator</h3>
+                        <p>Convert any text into a URL-safe slug with automatic cleanup.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <!-- Developer Tools -->
+                    <a href="pages/json-formatter.html" class="tool-card" data-name="json formatter"
+                        data-category="developer" data-keywords="json format minify validate">
+                        <button class="favorite-btn" data-slug="json-formatter" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>JSON Formatter</h3>
+                        <p>Format, validate and minify JSON documents with instant error detection.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/jwt-decoder.html" class="tool-card" data-name="jwt decoder" data-category="developer"
+                        data-keywords="jwt token json web decode">
+                        <button class="favorite-btn" data-slug="jwt-decoder" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>JWT Decoder</h3>
+                        <p>Decode and inspect JSON Web Tokens with header, payload, and expiration details.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/base64-tool.html" class="tool-card" data-name="base64 tool" data-category="developer"
+                        data-keywords="base64 encode decode">
+                        <button class="favorite-btn" data-slug="base64-tool" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>Base64 Tool</h3>
+                        <p>Encode and decode Base64 strings instantly.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/url-encoder.html" class="tool-card" data-name="url encoder" data-category="developer"
+                        data-keywords="url encode decode percent">
+                        <button class="favorite-btn" data-slug="url-encoder" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>URL Encoder</h3>
+                        <p>Encode and decode URLs and URI components.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/regex-tester.html" class="tool-card" data-name="regex tester"
+                        data-category="developer" data-keywords="regex regular expression match">
+                        <button class="favorite-btn" data-slug="regex-tester" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>Regex Tester</h3>
+                        <p>Test regular expressions with live matching, highlighting, and pattern flags.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/hash-generator.html" class="tool-card" data-name="hash generator"
+                        data-category="developer" data-keywords="hash md5 sha sha256 sha512">
+                        <button class="favorite-btn" data-slug="hash-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>Hash Generator</h3>
+                        <p>Generate MD5, SHA-1, SHA-256, and SHA-512 hashes using the Web Crypto API.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/uuid-generator.html" class="tool-card" data-name="uuid generator"
+                        data-category="developer" data-keywords="uuid guid unique identifier">
+                        <button class="favorite-btn" data-slug="uuid-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>UUID Generator</h3>
+                        <p>Generate single or bulk UUIDs instantly.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/timestamp-converter.html" class="tool-card" data-name="timestamp converter"
+                        data-category="developer" data-keywords="timestamp unix epoch date time">
+                        <button class="favorite-btn" data-slug="timestamp-converter" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Developer</div>
+                        <h3>Timestamp Converter</h3>
+                        <p>Convert between Unix timestamps and human-readable dates.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <!-- Design Tools -->
+                    <a href="pages/color-palette.html" class="tool-card" data-name="color palette generator"
+                        data-category="design" data-keywords="color palette generate random scheme">
+                        <button class="favorite-btn" data-slug="color-palette" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Design</div>
+                        <h3>Color Palette Generator</h3>
+                        <p>Generate beautiful random color palettes with lock and copy support.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/color-converter.html" class="tool-card" data-name="color converter"
+                        data-category="design" data-keywords="color hex rgb hsl convert">
+                        <button class="favorite-btn" data-slug="color-converter" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Design</div>
+                        <h3>Color Converter</h3>
+                        <p>Convert colors between HEX, RGB, and HSL formats.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/contrast-checker.html" class="tool-card" data-name="contrast checker"
+                        data-category="design" data-keywords="contrast wcag accessibility aa aaa">
+                        <button class="favorite-btn" data-slug="contrast-checker" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Design</div>
+                        <h3>Contrast Checker</h3>
+                        <p>Check color contrast ratios for WCAG AA and AAA compliance.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/gradient-generator.html" class="tool-card" data-name="gradient generator"
+                        data-category="design" data-keywords="gradient css linear radial">
+                        <button class="favorite-btn" data-slug="gradient-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Design</div>
+                        <h3>Gradient Generator</h3>
+                        <p>Design CSS gradients with a visual editor and instant CSS export.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/box-shadow-generator.html" class="tool-card" data-name="box shadow generator"
+                        data-category="design" data-keywords="box shadow css drop shadow">
+                        <button class="favorite-btn" data-slug="box-shadow-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Design</div>
+                        <h3>Box Shadow Generator</h3>
+                        <p>Create CSS box shadows with live preview and one-click export.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/border-radius-generator.html" class="tool-card" data-name="border radius generator"
+                        data-category="design" data-keywords="border radius round corner css">
+                        <button class="favorite-btn" data-slug="border-radius-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Design</div>
+                        <h3>Border Radius Generator</h3>
+                        <p>Control each corner independently and export CSS border-radius.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <!-- Utility Tools -->
+                    <a href="pages/unit-converter.html" class="tool-card" data-name="unit converter"
+                        data-category="utilities" data-keywords="unit convert length weight temperature">
+                        <button class="favorite-btn" data-slug="unit-converter" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Utilities</div>
+                        <h3>Unit Converter</h3>
+                        <p>Convert between length, weight, temperature, area, and volume units.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/timezone-converter.html" class="tool-card" data-name="timezone converter"
+                        data-category="utilities" data-keywords="timezone time zone convert">
+                        <button class="favorite-btn" data-slug="timezone-converter" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Utilities</div>
+                        <h3>Timezone Converter</h3>
+                        <p>Compare times across multiple timezones and plan meetings.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/password-generator.html" class="tool-card" data-name="password generator"
+                        data-category="utilities" data-keywords="password secure random strong">
+                        <button class="favorite-btn" data-slug="password-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Utilities</div>
+                        <h3>Password Generator</h3>
+                        <p>Generate strong passwords with custom length, symbols, and strength indicator.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/qr-generator.html" class="tool-card" data-name="qr generator"
+                        data-category="utilities" data-keywords="qr code generate barcode">
+                        <button class="favorite-btn" data-slug="qr-generator" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Utilities</div>
+                        <h3>QR Generator</h3>
+                        <p>Generate QR codes with PNG and SVG export options.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
+                    <a href="pages/qr-scanner.html" class="tool-card" data-name="qr scanner" data-category="utilities"
+                        data-keywords="qr scan read decode camera">
+                        <button class="favorite-btn" data-slug="qr-scanner" aria-label="Favorite">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="card-category">Utilities</div>
+                        <h3>QR Scanner</h3>
+                        <p>Scan QR codes from uploaded images and extract their content.</p>
+                        <span class="card-link">Open Tool <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></span>
+                    </a>
+
                 </div>
             </div>
+        </section>
 
-            <!-- Tool: Text Formatter -->
-            <div class="tool-card border-pink-500">
-                <div class="card-header bg-pink-500">
-                    <h2 class="text-2xl font-bold text-white">Text Transformer</h2>
-                </div>
-                <div class="p-6">
-                    <textarea id="textFormatterInput" rows="5" class="input-field" placeholder="Enter text to transform..."></textarea>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
-                        <button data-format="uppercase" class="formatter-btn pink">UPPER</button>
-                        <button data-format="lowercase" class="formatter-btn pink">lower</button>
-                        <button data-format="camelCase" class="formatter-btn pink">camel</button>
-                        <button data-format="snake_case" class="formatter-btn pink">snake</button>
-                        <button data-format="kebab-case" class="formatter-btn pink">kebab</button>
-                        <button data-format="titleCase" class="formatter-btn pink">Title</button>
-                    </div>
-                    <div class="flex space-x-3 mt-3">
-                        <button data-format="copy" class="action-btn pink flex-1">Copy</button>
-                        <button data-format="clear" class="action-btn secondary-btn flex-1">Clear</button>
-                    </div>
+        <!-- About -->
+        <section class="about-section reveal">
+            <div class="container">
+                <div class="about-content">
+                    <h2>Built for people who value their time and privacy.</h2>
+                    <p>Every tool runs entirely in your browser. No accounts. No tracking. No data ever leaves your
+                        device.</p>
+                    <p>Utilify is designed to feel like a premium software product — clean, fast, and focused on what
+                        matters.</p>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <!-- Tool: Character Counter -->
-            <div class="tool-card border-green-500">
-                <div class="card-header bg-green-500">
-                    <h2 class="text-2xl font-bold text-white">Content Analyzer</h2>
-                </div>
-                <div class="p-6">
-                    <textarea id="charCounterInput" rows="5" class="input-field" placeholder="Paste your content here for analysis..."></textarea>
-                    <div id="analysis-results" class="grid grid-cols-2 gap-4 mt-4 text-center">
-                        <div>
-                            <p class="text-3xl font-bold text-green-600" id="charCount">0</p>
-                            <p class="text-sm text-gray-500">Characters</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-bold text-green-600" id="wordCount">0</p>
-                            <p class="text-sm text-gray-500">Words</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-bold text-green-600" id="lineCount">0</p>
-                            <p class="text-sm text-gray-500">Lines</p>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-bold text-green-600" id="sentenceCount">0</p>
-                            <p class="text-sm text-gray-500">Sentences</p>
-                        </div>
-                    </div>
-                     <div class="mt-4 text-center bg-green-100 p-3 rounded-lg">
-                        <p class="font-semibold text-green-800">Est. Reading Time: <span id="readingTime">0 min</span></p>
-                    </div>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p>&copy; 2024 Utilify. All processing happens locally in your browser.</p>
+                <div class="footer-links">
+                    <a href="#" onclick="CommandPalette.open(); return false;">Search Tools</a>
                 </div>
             </div>
+        </div>
+    </footer>
 
-            <!-- Tool: Time Zone Converter -->
-            <div class="tool-card border-purple-500">
-                <div class="card-header bg-purple-500">
-                    <h2 class="text-2xl font-bold text-white">Global Time-shifter</h2>
-                </div>
-                <div class="space-y-4 p-6">
-                    <div>
-                        <label class="label">Your Date & Time</label>
-                        <input type="datetime-local" id="timeZoneInput" class="input-field">
-                    </div>
-                    <div>
-                        <label class="label">Target Timezone</label>
-                        <select id="timeZoneSelect" class="input-field select-field"></select>
-                    </div>
-                    <div class="text-center bg-purple-100 rounded-lg p-4">
-                        <p class="text-lg font-medium text-purple-800">Converted Time:</p>
-                        <p class="text-2xl font-bold text-purple-600" id="timeZoneOutput">&nbsp;</p>
-                    </div>
-                </div>
+    <!-- Command Palette Overlay -->
+    <div id="command-overlay" class="command-overlay" role="dialog" aria-label="Command palette">
+        <div class="command-palette">
+            <div class="command-input-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="command-input" placeholder="Search tools…" autocomplete="off">
             </div>
-
-            <!-- Tool: Lorem Ipsum Generator -->
-            <div class="tool-card border-yellow-500">
-                <div class="card-header bg-yellow-500">
-                    <h2 class="text-2xl font-bold text-white">Placeholder Generator</h2>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <input type="number" id="loremCount" value="3" min="1" class="input-field w-1/3">
-                        <select id="loremType" class="input-field select-field w-2/3">
-                            <option value="paragraphs">Paragraphs</option>
-                            <option value="sentences">Sentences</option>
-                            <option value="words">Words</option>
-                        </select>
-                    </div>
-                    <button id="generateLorem" class="action-btn yellow w-full mb-4">Generate</button>
-                    <textarea id="loremOutput" rows="6" class="input-field" readonly placeholder="Generated text will appear here..."></textarea>
-                    <button id="copyLorem" class="action-btn secondary-btn w-full mt-3">Copy to Clipboard</button>
-                </div>
-            </div>
-
-            <!-- Placeholder for more tools -->
-            <div class="tool-card-placeholder group">
-                <div class="text-center">
-                    <div class="icon-placeholder">
-                        <svg class="mx-auto h-12 w-12 text-gray-400 transition-all duration-300 group-hover:scale-110 group-hover:text-blue-500 group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                        </svg>
-                    </div>
-                    <h3 class="mt-4 text-xl font-medium text-gray-700">More Tools Incoming</h3>
-                    <p class="mt-1 text-sm text-gray-500">New ideas are brewing!</p>
-                </div>
+            <div class="command-results"></div>
+            <div class="command-footer">
+                <span><kbd>↑↓</kbd> Navigate</span>
+                <span><kbd>↵</kbd> Open</span>
+                <span><kbd>Esc</kbd> Close</span>
             </div>
         </div>
     </div>
 
-    <!-- Custom JS File -->
-    <script src="script.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/transitions.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
+
 </html>
