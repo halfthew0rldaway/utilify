@@ -178,7 +178,8 @@ const CommandPalette = (() => {
         // Track recently used
         App.addRecent(slug);
         // Navigate with view transition
-        const url = `pages/${slug}.html`;
+        const inPagesDir = window.location.pathname.includes('/pages/');
+        const url = inPagesDir ? `${slug}.html` : `pages/${slug}.html`;
         if (document.startViewTransition) {
             document.startViewTransition(() => {
                 window.location.href = url;

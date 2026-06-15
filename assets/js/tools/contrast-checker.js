@@ -60,7 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fgPicker.addEventListener('input', () => { fgInput.value = fgPicker.value; sync(); });
     bgPicker.addEventListener('input', () => { bgInput.value = bgPicker.value; sync(); });
-    fgInput.addEventListener('input', sync);
-    bgInput.addEventListener('input', sync);
+    fgInput.addEventListener('input', () => { 
+        if (/^#[0-9A-F]{6}$/i.test(fgInput.value)) fgPicker.value = fgInput.value;
+        sync(); 
+    });
+    bgInput.addEventListener('input', () => { 
+        if (/^#[0-9A-F]{6}$/i.test(bgInput.value)) bgPicker.value = bgInput.value;
+        sync(); 
+    });
     sync();
 });

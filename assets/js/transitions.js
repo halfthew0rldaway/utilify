@@ -13,6 +13,14 @@ const Transitions = (() => {
             return;
         }
 
+        // Fix hero visibility: force reveal immediately
+        const hero = document.querySelector('.hero.reveal');
+        if (hero) {
+            requestAnimationFrame(() => {
+                setTimeout(() => hero.classList.add('revealed'), 50);
+            });
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
